@@ -13,13 +13,13 @@ exclude = ["tests/data/*", ".github"]
 description = "Image comparison library based upon the image crate. Currently it provides SSIM and RMS for comparing grayscale and rgb images, a cool hybrid compare as well as several grayscale histogram distance metrics. All with a friendly license."
 
 [dependencies]
-thiserror = "1.0"
+thiserror = "2.0"
 image = { version = "0.25", default-features = false }
 rayon = "1.9"
-itertools = "0.12"
+itertools = "0.14"
 
 [dev-dependencies]
-cucumber = "0.20"
+cucumber = "0.21"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
 image = { version = "0.25", default-features = false, features = ["png"] }
 
