@@ -1,6 +1,6 @@
 [package]
 name = "image-compare"
-version = "0.4.1"
+version = "0.4.2"
 edition = "2021"
 authors = ["Christopher Regali <christopher.regali@vdop.org>"]
 license = "MIT"
@@ -15,7 +15,7 @@ description = "Image comparison library based upon the image crate. Currently it
 [dependencies]
 thiserror = "2.0"
 image = { version = "0.25", default-features = false }
-rayon = "1.9"
+rayon = "1.10"
 itertools = "0.14"
 
 [dev-dependencies]

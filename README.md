@@ -67,8 +67,10 @@ Image comparison in rust based on the image crate
       minimum alpha is clamped at 0.1, so you can still see all changes.
 
 Changelog:
-0.4.1:
+0.4.2:
+- Updated dependencies 
 
+0.4.1:
 - Support for hybrid-compare with images larger than 4096x4096 (Thanks @nikarh)
 
 0.4.0:
