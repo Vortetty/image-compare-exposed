@@ -30,3 +30,7 @@ harness = false
 [profile.release-with-debug]
 inherits = "release"
 debug = true
+
+[features]
+default = []
+advanced_functions = []

@@ -179,6 +179,22 @@ pub fn rgb_hybrid_compare(first: &RgbImage, second: &RgbImage) -> Result<Similar
 
     let first_channels = first.split_to_yuv();
     let second_channels = second.split_to_yuv();
+
+    internal_yuv_hybrid_compare(&first_channels, &second_channels)
+}
+
+// Provide a split yuv representation
+#[cfg(feature = "advanced_functions")]
+#[inline]
+pub fn yuv_hybrid_compare(first_channels: &[GrayImage; 3], second_channels: &[GrayImage; 3]) -> Result<Similarity, CompareError> {
+    internal_yuv_hybrid_compare(&first_channels, &second_channels)
+}
+
+pub(crate) fn internal_yuv_hybrid_compare(first_channels: &[GrayImage; 3], second_channels: &[GrayImage; 3]) -> Result<Similarity, CompareError> {
+    if first_channels[0].dimensions() != second_channels[0].dimensions() {
+        return Err(CompareError::DimensionsDiffer);
+    }
+
     let (_, mssim_result) = ssim_simple(&first_channels[0], &second_channels[0])?;
     let (_, u_result) = root_mean_squared_error_simple(&first_channels[1], &second_channels[1])?;
     let (_, v_result) = root_mean_squared_error_simple(&first_channels[2], &second_channels[2])?;
