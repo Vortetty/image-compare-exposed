@@ -232,6 +232,7 @@ pub use hybrid::rgba_hybrid_compare;
 pub use hybrid::rgba_blended_hybrid_compare;
 
 #[doc(inline)]
+#[cfg(feature = "advanced_functions")]
 pub use hybrid::yuv_hybrid_compare;
 
 pub use hybrid::BlendInput;
