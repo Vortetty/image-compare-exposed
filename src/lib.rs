@@ -77,7 +77,12 @@ mod histogram;
 mod hybrid;
 mod squared_error;
 mod ssim;
+
+#[cfg(not(feature="advanced_functions"))]
 mod utils;
+
+#[cfg(feature="advanced_functions")]
+pub mod utils;
 
 #[doc(hidden)]
 pub mod prelude {
@@ -225,6 +230,9 @@ pub use hybrid::rgba_hybrid_compare;
 
 #[doc(inline)]
 pub use hybrid::rgba_blended_hybrid_compare;
+
+#[doc(inline)]
+pub use hybrid::yuv_hybrid_compare;
 
 pub use hybrid::BlendInput;
 
