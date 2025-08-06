@@ -167,8 +167,8 @@ pub fn rgba_blended_hybrid_compare(
 /// Comparing structure via MSSIM on Y channel, comparing color-diff-vectors on U and V summing the squares
 /// Please mind that the RGBSimilarity-Image does _not_ contain plain RGB here
 /// - The red channel contains 1. - similarity(ssim, y)
-/// - The green channel contains 1. -  similarity(rms, u)
-/// - The blue channel contains 1. -  similarity(rms, v)
+/// - The green channel contains 1. - similarity(rms, u)
+/// - The blue channel contains 1. - similarity(rms, v)
 /// This leads to a nice visualization of color and structure differences - with structural differences (meaning gray mssim diffs) leading to red rectangles
 /// and and the u and v color diffs leading to color-deviations in green, blue and cyan
 /// All-black meaning no differences
@@ -183,18 +183,19 @@ pub fn rgb_hybrid_compare(first: &RgbImage, second: &RgbImage) -> Result<Similar
     internal_yuv_hybrid_compare(&first_channels, &second_channels)
 }
 
-// Provide a split yuv representation
 #[cfg(feature = "yuv_compare")]
-#[inline]
 pub fn yuv_hybrid_compare(first_channels: &[GrayImage; 3], second_channels: &[GrayImage; 3]) -> Result<Similarity, CompareError> {
+    if (first_channels[0].dimensions() != second_channels[0].dimensions())
+        || (first_channels[1].dimensions() != second_channels[1].dimensions())  // 5 checks needed, this ensures all channels are the same sizes.
+        || (first_channels[2].dimensions() != second_channels[2].dimensions())  // First 3 ensure the channels each have the same resolution across the 2 images
+        || (first_channels[0].dimensions() != first_channels[1].dimensions())   // Last 2 check if each channel is the same in the first image
+        || (first_channels[1].dimensions() != first_channels[2].dimensions()) { // If all checks pass this leaves all 6 being the same
+        return Err(CompareError::DimensionsDiffer);
+    }
     internal_yuv_hybrid_compare(&first_channels, &second_channels)
 }
 
 pub(crate) fn internal_yuv_hybrid_compare(first_channels: &[GrayImage; 3], second_channels: &[GrayImage; 3]) -> Result<Similarity, CompareError> {
-    if first_channels[0].dimensions() != second_channels[0].dimensions() {
-        return Err(CompareError::DimensionsDiffer);
-    }
-
     let (_, mssim_result) = ssim_simple(&first_channels[0], &second_channels[0])?;
     let (_, u_result) = root_mean_squared_error_simple(&first_channels[1], &second_channels[1])?;
     let (_, v_result) = root_mean_squared_error_simple(&first_channels[2], &second_channels[2])?;
