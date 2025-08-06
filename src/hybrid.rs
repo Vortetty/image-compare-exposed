@@ -183,6 +183,18 @@ pub fn rgb_hybrid_compare(first: &RgbImage, second: &RgbImage) -> Result<Similar
     internal_yuv_hybrid_compare(&first_channels, &second_channels)
 }
 
+/// Comparing structure via MSSIM on Y channel, comparing color-diff-vectors on U and V summing the squares
+/// first_channels and second_channels are arrays, each containing 3 `GrayImage`s
+/// - The first GrayImage contains the Y values - similarity(ssim, y)
+/// - The second GrayImage contains the U values - similarity(rms, u)
+/// - The third GrayImage contains the V values - similarity(rms, v)
+/// Please mind that the SimilarityImage does _not_ contain plain RGB here
+/// - The red channel contains 1. - similarity(ssim, y)
+/// - The green channel contains 1. - similarity(rms, u)
+/// - The blue channel contains 1. - similarity(rms, v)
+/// This leads to a nice visualization of color and structure differences - with structural differences (meaning gray mssim diffs) leading to red rectangles
+/// and and the u and v color diffs leading to color-deviations in green, blue and cyan
+/// All-black meaning no differences
 #[cfg(feature = "yuv_compare")]
 pub fn yuv_hybrid_compare(first_channels: &[GrayImage; 3], second_channels: &[GrayImage; 3]) -> Result<Similarity, CompareError> {
     if (first_channels[0].dimensions() != second_channels[0].dimensions())

@@ -81,6 +81,7 @@ mod ssim;
 #[cfg(not(feature="yuv_compare"))]
 mod utils;
 
+/// Provides some utilities to make yuv image management and conversion easier.
 #[cfg(feature="yuv_compare")] // Exposes rgb/yuv conversions and split to yuv publicly, others were left to be pub crate or private
 pub mod utils;
 

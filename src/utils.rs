@@ -67,8 +67,11 @@ pub(crate) fn blend_alpha(image: &RgbaImage, color: Rgb<u8>) -> RgbImage {
     buffer
 }
 
+/// Holds methods to split an RgbImage into arrays of channels
 pub trait Decompose {
+    /// Returns an array containing 3 `GrayImage`s where each channel represents [r, g, b]
     fn split_channels(&self) -> [GrayImage; 3];
+    /// Converts an image to yuv then returns an array containing 3 `GrayImage`s where each channel represents [y, u, v]
     fn split_to_yuv(&self) -> [GrayImage; 3];
 }
 
