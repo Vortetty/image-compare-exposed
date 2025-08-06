@@ -184,7 +184,7 @@ pub fn rgb_hybrid_compare(first: &RgbImage, second: &RgbImage) -> Result<Similar
 }
 
 // Provide a split yuv representation
-#[cfg(feature = "advanced_functions")]
+#[cfg(feature = "yuv_compare")]
 #[inline]
 pub fn yuv_hybrid_compare(first_channels: &[GrayImage; 3], second_channels: &[GrayImage; 3]) -> Result<Similarity, CompareError> {
     internal_yuv_hybrid_compare(&first_channels, &second_channels)

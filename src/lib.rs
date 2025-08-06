@@ -78,10 +78,10 @@ mod hybrid;
 mod squared_error;
 mod ssim;
 
-#[cfg(not(feature="advanced_functions"))]
+#[cfg(not(feature="yuv_compare"))]
 mod utils;
 
-#[cfg(feature="advanced_functions")]
+#[cfg(feature="yuv_compare")] // Exposes rgb/yuv conversions and split to yuv publicly, others were left to be pub crate or private
 pub mod utils;
 
 #[doc(hidden)]
@@ -232,7 +232,7 @@ pub use hybrid::rgba_hybrid_compare;
 pub use hybrid::rgba_blended_hybrid_compare;
 
 #[doc(inline)]
-#[cfg(feature = "advanced_functions")]
+#[cfg(feature = "yuv_compare")]
 pub use hybrid::yuv_hybrid_compare;
 
 pub use hybrid::BlendInput;

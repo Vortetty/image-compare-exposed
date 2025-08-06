@@ -33,4 +33,4 @@ debug = true
 
 [features]
 default = []
-advanced_functions = []
+yuv_compare = []
