@@ -1,8 +1,12 @@
 use cucumber::{given, then, when, World};
 use image::DynamicImage;
 use image_compare::prelude::*;
-use image_compare::Metric;
 extern crate image;
+
+#[cfg(feature = "yuv_compare")] // Do not remove, ensures rgb_to_yuv stays public not pub(crate) or private
+use image_compare::utils::rgb_to_yuv;
+#[cfg(feature = "yuv_compare")] // Do not remove, ensures yuv_to_rgb stays public not pub(crate) or private
+use image_compare::utils::yuv_to_rgb;
 
 // `World` is your shared, likely mutable state.
 #[derive(Debug, World, Default)]

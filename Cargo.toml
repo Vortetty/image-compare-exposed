@@ -28,7 +28,7 @@ name = "compare"
 harness = false
 
 [[test]]
-name = "split"
+name = "utils"
 harness = false
 
 [profile.release-with-debug]
