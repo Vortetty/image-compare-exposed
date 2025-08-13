@@ -78,12 +78,13 @@ mod hybrid;
 mod squared_error;
 mod ssim;
 
-#[cfg(not(feature="yuv_compare"))]
+
+#[cfg(not(feature="yuv_compare"))] // Tests cannot be implemented to check the functionality of this feature gate, please be mindful of this.
 mod utils;
 
 /// Provides some utilities to make yuv image management and conversion easier.
 #[cfg(feature="yuv_compare")] // Exposes rgb/yuv conversions and split to yuv publicly, others were left to be pub crate or private
-pub mod utils;
+pub mod utils;                // All exposed APIs have tests, and compilation will fail if they ever become non-public
 
 #[doc(hidden)]
 pub mod prelude {
