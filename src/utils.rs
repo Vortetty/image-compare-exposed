@@ -192,7 +192,7 @@ impl Window {
         result
     }
 
-    pub fn iter_pixels(&self) -> WindowIter {
+    pub fn iter_pixels(&'_ self) -> WindowIter<'_> {
         WindowIter {
             window: self,
             current_index: 0,
